@@ -6,4 +6,5 @@
 [Code Vault](https://www.youtube.com/watch?v=QD9YKSg3wCc&list=PLfqABt5AS4FmErobw8YyTwXDUE5nPH5lH&index=119) \
 [Man Sigaction](https://man7.org/linux/man-pages/man2/sigaction.2.html)
 ## AUTRES
+[Unicode](https://www.charset.org/utf-8) \
 [Threads](https://medium.com/@jalal92/lets-discuss-threads-grab-a-coffee-ad4d4ebf7181)
