@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   client_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tjoyeux <tjoyeux@student.42.fr>            +#+  +:+       +#+        */
+/*   By: joyeux <joyeux@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 13:28:53 by joyeux            #+#    #+#             */
-/*   Updated: 2024/02/12 16:48:32 by tjoyeux          ###   ########.fr       */
+/*   Updated: 2024/02/13 00:01:09 by joyeux           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,17 @@ void	send_signals(char *pid, char *str)
 		i = 32;
 		str++;
 	}
+}
+int		find_char_len(char *str)
+{
+	if (*str << 7 == 0)
+		return (1);
+}
+void	send_unicode_char(char *pid, char *str)
+{
+	int	len;
+
+	len = find_char_len(str);
 }
 
 int	main(int argc, char **argv)
