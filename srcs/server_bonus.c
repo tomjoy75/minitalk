@@ -1,37 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server.c                                           :+:      :+:    :+:   */
+/*   server_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tjoyeux <tjoyeux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 13:29:41 by joyeux            #+#    #+#             */
-/*   Updated: 2024/02/12 13:37:20 by tjoyeux          ###   ########.fr       */
+/*   Updated: 2024/02/12 16:49:04 by tjoyeux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include <stdlib.h>
-#include <sys/types.h>
-#include <stdio.h>
+//#include <sys/types.h>
+//#include <stdio.h>
 #include <signal.h>
 #include "libft/libft.h"
 
 void	handle_sigusr(int sig, siginfo_t *info, void *ucontext)
 {
 	static int	bit_count = 0;
-	static char	c = 0;
+	static short	c = 0;
 
 	(void)ucontext;
 	if (sig == SIGUSR2 && !bit_count)
 	{
 		write (1, "\n", 1);
+		kill(info->si_pid, SIGUSR2);
 		return ;
 	}
 	if (sig == SIGUSR2)
-		c = c | 1 << (7 - bit_count);
+		c = c | 1 << (31 - bit_count);
 	bit_count++;
-	if (bit_count == 8)
+	if (bit_count == 32)
 	{
 		write(1, &c, 1);
 		bit_count = 0;

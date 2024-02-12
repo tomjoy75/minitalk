@@ -13,6 +13,8 @@
 #________________________________Variables___________________________________
 NAME_S = server
 NAME_C = client
+NAME_BONUS_S = server_bonus
+NAME_BONUS_C = client_bonus
 LIBFT_PATH = ./libft/
 LIBFT = $(LIBFT_PATH)libft.a
 
@@ -30,10 +32,14 @@ OBJ_PATH	= ./objs/
 #SRC_BONUS	= $(COMMON_SRC) $(SRC_PATH)main_bonus.c
 #OBJ		= $(SRC:$(SRC_PATH)%.c=$(OBJ_PATH)%.o)
 #OBJ_BONUS	= $(SRC_BONUS:$(SRC_PATH)%.c=$(OBJ_PATH)%.o)
-SRC_C			= $(SRC_PATH)client.c
-SRC_S			= $(SRC_PATH)server.c
-OBJ_C			= $(SRC_C:$(SRC_PATH)%.c=$(OBJ_PATH)%.o)
-OBJ_S			= $(SRC_S:$(SRC_PATH)%.c=$(OBJ_PATH)%.o)
+SRC_C				= $(SRC_PATH)client.c
+SRC_S				= $(SRC_PATH)server.c
+OBJ_C				= $(SRC_C:$(SRC_PATH)%.c=$(OBJ_PATH)%.o)
+OBJ_S				= $(SRC_S:$(SRC_PATH)%.c=$(OBJ_PATH)%.o)
+SRC_BONUS_C			= $(SRC_PATH)client_bonus.c
+SRC_BONUS_S			= $(SRC_PATH)server_bonus.c
+OBJ_BONUS_C			= $(SRC_BONUS_C:$(SRC_PATH)%.c=$(OBJ_PATH)%.o)
+OBJ_BONUS_S			= $(SRC_BONUS_S:$(SRC_PATH)%.c=$(OBJ_PATH)%.o)
 
 FLAG_FILE	:= .build_started
 FLAG_BONUS	:= .build_started_bonus
@@ -52,14 +58,19 @@ $(NAME_C) : $(LIBFT) $(OBJ_C)
 	@echo "$(MAGENTA)$(BOLD)Linking Client: $(RESET)$(BLUE)$(ITALIC)$@$(RESET)"
 	$(CC) $(CFLAGS) -o $(NAME_C) $(OBJ_C) $(LDFLAGS)
 
-# #_________________________________Checker____________________________________
+# #_________________________________Bonus____________________________________
 
-# bonus : $(NAME_BONUS)
+bonus : $(NAME_BONUS_C) $(NAME_BONUS_S)
 
-# $(NAME_BONUS) : $(LIBFT) $(OBJ_BONUS) push_swap.h
-# 	@echo "$(GREEN)$(BOLD)$(ITALIC)$$LINKING$(RESET)\n"
-# 	@echo "$(MAGENTA)$(BOLD)Linking: $(RESET)$(BLUE)$(ITALIC)$@$(RESET)"
-# 	$(CC) $(CFLAGS) -o $(NAME_BONUS) $(OBJ_BONUS) $(LDFLAGS)
+$(NAME_BONUS_S) : $(LIBFT) $(OBJ_BONUS_S)
+	@echo "$(GREEN)$(BOLD)$(ITALIC)$$LINKING$(RESET)\n"
+	@echo "$(MAGENTA)$(BOLD)Linking Server Bonus: $(RESET)$(BLUE)$(ITALIC)$@$(RESET)"
+	$(CC) $(CFLAGS) -o $(NAME_BONUS_S) $(OBJ_BONUS_S) $(LDFLAGS)
+
+$(NAME_BONUS_C) : $(LIBFT) $(OBJ_BONUS_C)
+	@echo "$(GREEN)$(BOLD)$(ITALIC)$$LINKING$(RESET)\n"
+	@echo "$(MAGENTA)$(BOLD)Linking Client Bonus: $(RESET)$(BLUE)$(ITALIC)$@$(RESET)"
+	$(CC) $(CFLAGS) -o $(NAME_BONUS_C) $(OBJ_BONUS_C) $(LDFLAGS)
 
 # #____________________________Common operations_______________________________
 
@@ -93,7 +104,8 @@ fclean : clean
 	@echo "$(MAGENTA)$(BOLD)Cleaning: $(RESET)$(BLUE)$(ITALIC)$(NAME)$(RESET)"
 	$(RM) $(NAME_C)
 	$(RM) $(NAME_S)
-#	$(RM) $(NAME_BONUS)
+	$(RM) $(NAME_BONUS_C)
+	$(RM) $(NAME_BONUS_S)
 
 re : fclean all
 

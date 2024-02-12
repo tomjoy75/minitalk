@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   client.c                                           :+:      :+:    :+:   */
+/*   client_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tjoyeux <tjoyeux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 13:28:53 by joyeux            #+#    #+#             */
-/*   Updated: 2024/02/12 14:08:29 by tjoyeux          ###   ########.fr       */
+/*   Updated: 2024/02/12 16:48:32 by tjoyeux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,13 @@ int	isnumber(char *str)
 	return (1);
 }
 
-void	sigusr1_handler(int sig)
+void	sigusr_handler(int sig)
 {
-	(void)sig;
-	g_cont = 1;
+	//(void)sig;
+	if (sig == SIGUSR1)
+		g_cont = 1;
+	else if (sig == SIGUSR2)
+		ft_putstr_fd("Message successfully sent!\n", 1);
 }
 
 void	send_signals(char *pid, char *str)
@@ -48,7 +51,7 @@ void	send_signals(char *pid, char *str)
 	int		i;
 	char	bit;
 
-	i = 8;
+	i = 32;
 	while (*str)
 	{
 		while (--i >= 0)
@@ -62,7 +65,7 @@ void	send_signals(char *pid, char *str)
 			while (!g_cont)
 				pause();
 		}
-		i = 8;
+		i = 32;
 		str++;
 	}
 }
@@ -75,10 +78,11 @@ int	main(int argc, char **argv)
 		error_message(1);
 	if (!isnumber(argv[1]))
 		error_message(2);
-	sa.sa_handler = sigusr1_handler;
+	sa.sa_handler = sigusr_handler;
 	sigemptyset(&sa.sa_mask);
 	sa.sa_flags = 0;
 	sigaction(SIGUSR1, &sa, NULL);
+	sigaction(SIGUSR2, &sa, NULL);
 	send_signals(argv[1], argv[2]);
 	kill(ft_atoi(argv[1]), SIGUSR2);
 }
