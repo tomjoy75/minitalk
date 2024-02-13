@@ -7,4 +7,7 @@
 [Man Sigaction](https://man7.org/linux/man-pages/man2/sigaction.2.html)
 ## AUTRES
 [Unicode](https://www.charset.org/utf-8) \
+[Unicode Standart](http://www.unicode.org/versions/Unicode6.0.0/ch02.pdf) \
+[Unicode and BitShifting](http://www.readytext.co.uk/?p=1284) \
 [Threads](https://medium.com/@jalal92/lets-discuss-threads-grab-a-coffee-ad4d4ebf7181)
+

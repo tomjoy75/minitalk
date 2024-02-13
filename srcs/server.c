@@ -6,7 +6,7 @@
 /*   By: tjoyeux <tjoyeux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 13:29:41 by joyeux            #+#    #+#             */
-/*   Updated: 2024/02/12 13:37:20 by tjoyeux          ###   ########.fr       */
+/*   Updated: 2024/02/13 15:36:03 by tjoyeux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,28 @@ void	handle_sigusr(int sig, siginfo_t *info, void *ucontext)
 	static char	c = 0;
 
 	(void)ucontext;
+	// Cas ou on recoit le signal de fin de mot
 	if (sig == SIGUSR2 && !bit_count)
 	{
 		write (1, "\n", 1);
 		return ;
 	}
+	printf("bit %d : ", bit_count);
+	// Cas ou in recoit un bit de 1
 	if (sig == SIGUSR2)
+	{
 		c = c | 1 << (7 - bit_count);
+		printf("1\n");
+	}
+	else
+		printf("0\n");
 	bit_count++;
+	// Cas ou on a recu tous les bits et constitue un octet
+	// TODO: extraire le char et l'agreger dans une string 
 	if (bit_count == 8)
 	{
 		write(1, &c, 1);
+	//	printf("%c\n", c);
 		bit_count = 0;
 		c = 0;
 	}

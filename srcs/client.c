@@ -6,7 +6,7 @@
 /*   By: tjoyeux <tjoyeux@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 13:28:53 by joyeux            #+#    #+#             */
-/*   Updated: 2024/02/12 14:08:29 by tjoyeux          ###   ########.fr       */
+/*   Updated: 2024/02/13 15:29:13 by tjoyeux          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,29 @@ void	send_signals(char *pid, char *str)
 				kill(ft_atoi(pid), SIGUSR1);
 			else if (bit == '1')
 				kill(ft_atoi(pid), SIGUSR2);
+			ft_putchar(bit);
 			while (!g_cont)
 				pause();
 		}
 		i = 8;
 		str++;
+		ft_putchar('-');
 	}
+}
+void	send_ending(char *pid)
+{
+	int	i;
+
+	i = 8;
+	while (--i >= 0)
+	{
+		g_cont = 0;
+		ft_putnbr_fd(0, 1);
+		kill(ft_atoi(pid), SIGUSR1);
+		while (!g_cont)
+			pause();
+	}
+	ft_printf("\n");
 }
 
 int	main(int argc, char **argv)
@@ -80,5 +97,6 @@ int	main(int argc, char **argv)
 	sa.sa_flags = 0;
 	sigaction(SIGUSR1, &sa, NULL);
 	send_signals(argv[1], argv[2]);
+	send_ending(argv[1]);
 	kill(ft_atoi(argv[1]), SIGUSR2);
 }
