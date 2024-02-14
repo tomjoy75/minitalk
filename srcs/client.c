@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   client.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tjoyeux <tjoyeux@student.42.fr>            +#+  +:+       +#+        */
+/*   By: joyeux <joyeux@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 13:28:53 by joyeux            #+#    #+#             */
-/*   Updated: 2024/02/13 15:29:13 by tjoyeux          ###   ########.fr       */
+/*   Updated: 2024/02/14 01:04:51 by joyeux           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ void	send_ending(char *pid)
 			pause();
 	}
 	ft_printf("\n");
+
 }
 
 int	main(int argc, char **argv)
@@ -98,5 +99,7 @@ int	main(int argc, char **argv)
 	sigaction(SIGUSR1, &sa, NULL);
 	send_signals(argv[1], argv[2]);
 	send_ending(argv[1]);
-	kill(ft_atoi(argv[1]), SIGUSR2);
+	return (0);
+//	kill(ft_atoi(argv[1]), SIGUSR2);
 }
+//"Bonjour le monde, ça va ? 🌍🚀 "
